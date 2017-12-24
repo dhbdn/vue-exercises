@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件路由的匹配</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>hello Vue</h1>
+        <p>
+            <router-link to="/user/foo">go to foo</router-link>
+            <router-link to="/user/bar">go to bar</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+</body>
+<script>
+    //定义组件
+    const User = {
+        template: "<div>User{{$route.params.id}}</div>"
+    }
+    console.log({
+            {
+                $route.params.id
+            }
+        })
+        //定义路由
+    const routes = [{
+            path: "/user/:id",
+            component: User
+        }]
+        //创建router实例，传递routes，
+    const router = new VueRouter({
+        routes
+    })
+
+    //创建和挂载根实例
+    const app = new Vue({
+        router
+    }).$mount("#app")
+</script>
+
+</html>
