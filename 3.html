@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由嵌套</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link to="/user/foo">user/foo</router-link>
+            <router-link to="/user/foo/one">user/foo/one</router-link>
+            <router-link to="/user/foo/two">user/foo/two</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+</body>
+<script>
+    //定义组件
+    const User = {
+        template: `<div class="user">
+      <h2>User {{ $route.params.id }}</h2>
+      <router-view></router-view>
+    </div>`
+    }
+    const UserHome = {
+        template: "<div>Home</div>"
+    }
+    const UserOne = {
+        template: "<div>userOne</div>"
+    }
+    const UserTwo = {
+            template: "<div>userTwo</div>"
+        }
+        //创建路由
+    const routes = [{
+        path: "/user/:id",
+        component: User,
+        children: [{
+            path: "",
+            component: UserHome
+        }, {
+            path: "one",
+            component: UserOne
+        }, {
+            path: "two",
+            component: UserTwo
+        }, ]
+    }]
+    const router = new VueRouter({
+        routes,
+    })
+    const app = new Vue({
+        router
+    }).$mount("#app")
+</script>
+
+</html>
