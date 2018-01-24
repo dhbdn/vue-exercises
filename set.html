@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义指令</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in items">{{item}}</li>
+        </ul>
+        <button @click="change">change</button>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            items: [1, 2, 3, 4, 5, 6]
+        },
+        methods: {
+            random: function() {
+                return Math.ceil(this.items.length * Math.random())
+            },
+            change: function() {
+                var that = this
+                Vue.set(that.items, 2, that.random())
+            },
+        }
+    })
+</script>
+
+</html>
